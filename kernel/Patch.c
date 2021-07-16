@@ -113,6 +113,7 @@ u32 IsN64Emu = 0;
  */
 
 #include "gecko/g_core.h"	// Core Slippi codeset
+#include "gecko/g_summiteleven.h"
 #include "gecko/g_ucf.h"	// UCF codeset
 #include "gecko/g_toggles.h"	// Player-toggleable None/UCF/Dween at CSS
 #include "gecko/g_tournament.h"	// Tournament codes: neutral spawns, nametag hide
@@ -3415,6 +3416,10 @@ void DoPatches( char *Buffer, u32 Length, u32 DiscOffset )
 		memcpy((void*)gct_cursor, g_core, g_core_size);
 		sync_after_write((void*)gct_cursor, g_core_size);
 		gct_cursor += g_core_size;
+
+		memcpy((void*)gct_cursor, g_summiteleven, g_summiteleven_size);
+		sync_after_write((void*)gct_cursor, g_summiteleven_size);
+		gct_cursor += g_summiteleven_size;
 
 		dbgprintf("Patch:Apply toggleables at 0x%08x\r\n", gct_cursor);
 
