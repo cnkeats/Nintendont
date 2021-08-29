@@ -225,7 +225,7 @@ static const char *lagReductionDescription[] = {
 	"    VB is the visual buffer.",
 	"    Removes 1/2 frame of lag.",
 	"    Average 12.50ms reduction",
-	"	 THIS IS ONLY FOR MONITORS.",
+	"    THIS IS ONLY FOR MONITORS.",
 	NULL,
 };
 
