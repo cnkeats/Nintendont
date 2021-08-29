@@ -10,7 +10,7 @@
 #include "../../kernel/gecko/g_mods_friendlies.h" // Mods: Friendlies
 
 #include "../../kernel/gecko/g_lag_pd.h" // Lag Reduction: PD
-#include "../../kernel/gecko/g_lag_pdvb.h" // Lag Reduction: PD+VB
+#include "../../kernel/gecko/g_lag_pdhalfvb.h" // Lag Reduction: PD+VB
 
 #include "../../kernel/gecko/g_stages_stadium.h" // Stages: Frozen Pokemon
 #include "../../kernel/gecko/g_stages_all.h" // Stages: Frozen Pokemon
@@ -203,8 +203,8 @@ const MeleeCodeOption lagReductionOptionPd = {
 const MeleeCodeOption lagReductionOptionPdVb = {
 	3,
 	"PD + Half VB",
-	g_lag_pdvb_size,
-	g_lag_pdvb,
+	g_lag_pdhalfvb_size,
+	g_lag_pdhalfvb,
 };
 
 const MeleeCodeOption *lagReductionOptions[MELEE_CODES_LAG_REDUCTION_OPTION_COUNT] = {
