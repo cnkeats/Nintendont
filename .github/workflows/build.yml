@@ -1,6 +1,7 @@
 name: CI Slippi Nintendont Builds
 
-on:
+on: |
+  workflow_dispatch
   push:
     branches: 
       - slippi
