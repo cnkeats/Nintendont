@@ -1,7 +1,12 @@
 name: CI Slippi Nintendont Builds
 
-on: |
-  workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      ignore:
+          description: 'ignore'
+          required: false
+          default: 'ignore'
   push:
     branches: 
       - slippi
