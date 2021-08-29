@@ -202,7 +202,7 @@ const MeleeCodeOption lagReductionOptionPd = {
 
 const MeleeCodeOption lagReductionOptionPdVb = {
 	3,
-	"PD + VB",
+	"PD + Half VB",
 	g_lag_pdvb_size,
 	g_lag_pdvb,
 };
@@ -221,10 +221,11 @@ static const char *lagReductionDescription[] = {
 	"    inputs are polled consistently.",
 	"    Average 4.17ms reduction",
 	"",
-	"  [PD+VB]",
-  "    VB is the visual buffer.",
-	"    Removes one frame of lag.",
-	"    Average 20.83ms reduction",
+	"  [PD + Half VB]",
+	"    VB is the visual buffer.",
+	"    Removes 1/2 frame of lag.",
+	"    Average 12.50ms reduction",
+	"	 THIS IS ONLY FOR MONITORS.",
 	NULL,
 };
 
