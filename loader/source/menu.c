@@ -977,6 +977,13 @@ static const char *const *GetSettingsDescription(const MenuCtx *ctx)
  */
 static void Menu_Settings_InputHandler(MenuCtx *ctx)
 {
+	if(FPAD_X(0))
+	{
+		// Start the updater.
+		UpdateNintendont();
+		ctx->redraw = 1;
+	}
+
 	if (FPAD_Down_Repeat(ctx))
 	{
 		// Down: Move the cursor down by 1 setting.
@@ -1660,7 +1667,7 @@ static int Menu_GameSelection(void)
 			// Draw header text for the settings menu
 			else
 			{
-				PrintButtonActions("Go Back", "Select", "Game List", NULL);
+				PrintButtonActions("Go Back", "Select", "Game List", "Update");
 
 				// Print Tab Information
 				int leftOffset = 140;
@@ -1854,7 +1861,7 @@ void PrintButtonActions(const char *btn_home, const char *btn_a, const char *btn
 	if (btn_b)
 		PrintFormat(DEFAULT_SIZE, BLACK, MENU_POS_X + 410, MENU_POS_Y + 20*2, "B   : %s", btn_b);
 	if (btn_x1)
-		PrintFormat(DEFAULT_SIZE, BLACK, MENU_POS_X + 410, MENU_POS_Y + 20*3, "X : %s", btn_x1);
+		PrintFormat(DEFAULT_SIZE, BLACK, MENU_POS_X + 410, MENU_POS_Y + 20*3, "X   : %s", btn_x1);
 }
 
 
