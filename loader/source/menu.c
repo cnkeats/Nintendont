@@ -1617,12 +1617,12 @@ static int Menu_GameSelection(void)
 			ctx.redraw = 1;
 		}
 
-		if (ctx.menuMode != 0 && (FPAD_RTrigger(0) || FPAD_X(0)))
+		if (ctx.menuMode != 0 && (FPAD_RTrigger(0)))
 		{
 			ctx.pages.index = (ctx.pages.index + 1) % ctx.pages.count;
 		}
 
-		if (ctx.menuMode != 0 && (FPAD_LTrigger(0) || FPAD_Y(0)))
+		if (ctx.menuMode != 0 && (FPAD_LTrigger(0)))
 		{
 			ctx.pages.index = (ctx.pages.index - 1 + ctx.pages.count) % ctx.pages.count;
 		}

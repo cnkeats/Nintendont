@@ -57,14 +57,14 @@ typedef enum {
 } DOWNLOADS;
 
 static const downloads_t Downloads[] = {
-	{"https://github.com/project-slippi/Nintendont/releases/latest/download/debug_loader.dol", "Updating Nintendont", "boot.dol", 0x400000}, // 4MB
+	{"https://github.com/project-slippi/Nintendont/releases/latest/download/debug_loader.dol", "Updating Slippi Nintendont", "boot.dol", 0x500000}, // 4MB
 };
 
 extern void changeToDefaultDrive();
 
 static s32 Download(DOWNLOADS download_number)  {
 	int line = 5;
-	int ret, major = 0, minor = 0;
+	int ret;
 	char errmsg[48];
 	unsigned int http_status = 0;
 	u8* outbuf = NULL;
@@ -75,7 +75,7 @@ static s32 Download(DOWNLOADS download_number)  {
 	const char *dir = (dir_argument_exists ? launch_dir : "/apps/Slippi Nintendont/");
 
 	ClearScreen();
-	PrintInfo();
+	PrintBuildInfo();
 
 	snprintf(filepath, sizeof(filepath), "%s%s", dir, Downloads[download_number].filename);
 	PrintFormat(DEFAULT_SIZE, BLACK, MENU_POS_X, MENU_POS_Y + 20*line, Downloads[download_number].text);
@@ -95,11 +95,9 @@ static s32 Download(DOWNLOADS download_number)  {
 	UpdateScreen();
 	ssl_init(); //only once needed
 	line++;
-	if (download_number == DOWNLOAD_NINTENDONT) {
-		PrintFormat(DEFAULT_SIZE, BLACK, MENU_POS_X, MENU_POS_Y + 20*line, "Downloading latest Slippi Nintendont");
-		UpdateScreen();
-		line++;
-	}
+	PrintFormat(DEFAULT_SIZE, BLACK, MENU_POS_X, MENU_POS_Y + 20*line, "Downloading latest Slippi Nintendont");
+	UpdateScreen();
+	line++;
 
 	int i;
 	for (i = 0; i <= 10; i++) {
@@ -129,27 +127,26 @@ static s32 Download(DOWNLOADS download_number)  {
 		f_mkdir_char("/apps");
 		f_mkdir_char("/apps/Slippi Nintendont");
 	}
-	else
-	{
-		FIL file;
-		FRESULT res = f_open_char(&file, filepath, FA_WRITE|FA_CREATE_ALWAYS);
-		if (res != FR_OK) {
-			gprintf("File Error\r\n");
-			snprintf(errmsg, sizeof(errmsg), "Error opening '%s': %u", filepath, res);
-			ret = -4;
-			goto end;
-		} else {
-			// Reserve space in the file.
-			f_expand(&file, filesize, 1);
 
-			// Write the file.
-			UINT wrote;
-			f_write(&file, outbuf, filesize, &wrote);
-			f_close(&file);
-			FlushDevices();
-			ret = 1;
-		}
+	FIL file;
+	FRESULT res = f_open_char(&file, filepath, FA_WRITE|FA_CREATE_ALWAYS);
+	if (res != FR_OK) {
+		gprintf("File Error\r\n");
+		snprintf(errmsg, sizeof(errmsg), "Error opening '%s': %u", filepath, res);
+		ret = -4;
+		goto end;
+	} else {
+		// Reserve space in the file.
+		f_expand(&file, filesize, 1);
+
+		// Write the file.
+		UINT wrote;
+		f_write(&file, outbuf, filesize, &wrote);
+		f_close(&file);
+		FlushDevices();
+		ret = 1;
 	}
+
 	if (ret == 1) {
 		PrintFormat(DEFAULT_SIZE, BLACK, MENU_POS_X, MENU_POS_Y + 20*line, "Update Complete");
 		UpdateScreen();
@@ -176,7 +173,7 @@ void UpdateNintendont(void) {
 
 	while (true) {
 		if (redraw) {
-			PrintInfo();
+			PrintBuildInfo();
 			PrintButtonActions("Go Back", "Update", NULL, NULL);
 
 			// Update menu.
