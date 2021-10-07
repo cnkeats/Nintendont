@@ -195,14 +195,14 @@ const MeleeCodeOption lagReductionOptionOff = {
 
 const MeleeCodeOption lagReductionOptionPd = {
 	2,
-	"PD",
+	"PDF",
 	g_lag_pd_size,
 	g_lag_pd,
 };
 
 const MeleeCodeOption lagReductionOptionPdVb = {
 	3,
-	"PD + Half VB",
+	"PDF + 1/2F",
 	g_lag_pdhalfvb_size,
 	g_lag_pdhalfvb,
 };
@@ -216,13 +216,12 @@ const MeleeCodeOption *lagReductionOptions[MELEE_CODES_LAG_REDUCTION_OPTION_COUN
 static const char *lagReductionDescription[] = {
 	"Lag reduction codes",
 	"",
-	"  [PD]",
+	"  [PDF]",
 	"    Polling drift fix. Ensures",
 	"    inputs are polled consistently.",
 	"    Average 4.17ms reduction",
 	"",
-	"  [PD + Half VB]",
-	"    VB is the visual buffer.",
+	"  [PDF + 1/2F]",
 	"    Removes 1/2 frame of lag.",
 	"    Average 12.50ms reduction",
 	"    THIS IS ONLY FOR MONITORS.",
@@ -367,7 +366,7 @@ const MeleeCodeOption screenOptionDefault = {
 
 const MeleeCodeOption screenOptionMonitor7360 = {
 	MELEE_CODES_WIDE_SHUTTERS_VALUE,
-	"73:60 Shutters",
+	"16:9➧73:60",
 	g_screen_wide_shutters_size,
 	g_screen_wide_shutters,
 };
@@ -391,9 +390,9 @@ static const char *screenDescription[] = {
 	"  [Default]",
 	"    Use on CRT or for no change.",
 	"",
-	"  [73:60 Shutters]",
-	"    Easiest way to get proper",
-	"    resolution on a monitor.",
+	"  [16:9➧73:60]",
+	"    Use on monitor to show Melee",
+	"    at its native resolution.",
 	"    Set monitor to full/stretch",
 	"    as if using widescreen.",
 	"",
