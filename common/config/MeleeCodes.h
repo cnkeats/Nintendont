@@ -23,7 +23,7 @@
 
 #define MELEE_CODES_LINE_ITEM_COUNT 7
 
-#define MELEE_CODES_43_MONITOR_VALUE 2
+#define MELEE_CODES_WIDE_SHUTTERS_VALUE 2
 #define MELEE_CODES_WIDE_VALUE 3
 
 typedef struct MeleeCodeOption

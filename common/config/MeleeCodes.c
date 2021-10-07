@@ -20,7 +20,7 @@
 #include "../../kernel/gecko/g_gameplay_both.h" // Gameplay: Both
 
 #include "../../kernel/gecko/g_screen_wide.h" // Screen: Widescreen
-#include "../../kernel/gecko/g_screen_mon43.h" // Screen: 4:3 -> 73:60
+#include "../../kernel/gecko/g_screen_wide_shutters.h" // Screen: 4:3 -> 73:60
 
 #define NULL ((void *)0)
 
@@ -365,11 +365,11 @@ const MeleeCodeOption screenOptionDefault = {
 	NULL,
 };
 
-const MeleeCodeOption screenOptionMonitor43 = {
-	MELEE_CODES_43_MONITOR_VALUE,
-	"Monitor 4:3",
-	g_screen_mon43_size,
-	g_screen_mon43,
+const MeleeCodeOption screenOptionMonitor7360 = {
+	MELEE_CODES_WIDE_SHUTTERS_VALUE,
+	"73:60 Shutters",
+	g_screen_wide_shutters_size,
+	g_screen_wide_shutters,
 };
 
 const MeleeCodeOption screenOptionMonitor169 = {
@@ -381,7 +381,7 @@ const MeleeCodeOption screenOptionMonitor169 = {
 
 const MeleeCodeOption *screenOptions[MELEE_CODES_SCREEN_OPTION_COUNT] = {
 	&screenOptionDefault,
-	&screenOptionMonitor43,
+	&screenOptionMonitor7360,
 	&screenOptionMonitor169,
 };
 
@@ -391,10 +391,11 @@ static const char *screenDescription[] = {
 	"  [Default]",
 	"    Use on CRT or for no change.",
 	"",
-	"  [Monitor 4:3]",
-	"    Use with monitor with aspect",
-	"    forced to 4:3. Will modify",
-	"    game to look 73:60.",
+	"  [73:60 Shutters]",
+	"    Easiest way to get proper",
+	"    resolution on a monitor.",
+	"    Set monitor to full/stretch",
+	"    as if using widescreen.",
 	"",
 	"  [Widescreen]",
 	"    Use on a 16:9 monitor. Will",

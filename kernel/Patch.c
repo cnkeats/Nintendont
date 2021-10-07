@@ -2248,17 +2248,10 @@ void DoPatches( char *Buffer, u32 Length, u32 DiscOffset )
 						}
 					}
 					s8 videoScale = ConfigGetVideoScale();
-					if (screenValue == MELEE_CODES_WIDE_VALUE) {
+					if (screenValue == MELEE_CODES_WIDE_VALUE || screenValue == MELEE_CODES_WIDE_SHUTTERS_VALUE) {
 						videoScale = 120;
-					} else if (screenValue == MELEE_CODES_43_MONITOR_VALUE) {
-						videoScale = 40;
 					}
 					
-					// if (screenValue == MELEE_CODES_43_MONITOR_VALUE) {
-					// 	// Use a normally unavailable value to shrink screen more to get correct aspect ratio
-					// 	W16((u32)Buffer+i+0xE, 585); // This does not work unfortunately
-					// 	W16((u32)Buffer+i+0xA, (720 - R16((u32)Buffer+i+0xE)) / 2);
-					// } else 
 					if(videoScale >= 40 && videoScale <= 120)
 					{
 						W16((u32)Buffer+i+0xE, videoScale + 600);
