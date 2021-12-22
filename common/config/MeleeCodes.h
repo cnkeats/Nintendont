@@ -8,6 +8,7 @@
 #define MELEE_CODES_STAGES_OPTION_COUNT 3
 #define MELEE_CODES_SCREEN_OPTION_COUNT 3
 #define MELEE_CODES_GAMEPLAY_OPTION_COUNT 4
+#define MELEE_CODES_SAFETY_OPTION_COUNT 2
 
 #define MELEE_CODES_CF_OPTION_ID 0
 #define MELEE_CODES_VERSION_OPTION_ID 1
@@ -16,12 +17,13 @@
 #define MELEE_CODES_STAGES_OPTION_ID 4
 #define MELEE_CODES_GAMEPLAY_OPTION_ID 5
 #define MELEE_CODES_SCREEN_OPTION_ID 6
+#define MELEE_CODES_SAFETY_OPTION_ID 7
 
 // Indicates the maximum number possible for ID. This is important in case the line items change,
 // we don't want to persist setting values for a different line item
-#define MELEE_CODES_MAX_ID 6
+#define MELEE_CODES_MAX_ID 7
 
-#define MELEE_CODES_LINE_ITEM_COUNT 7
+#define MELEE_CODES_LINE_ITEM_COUNT 8
 
 #define MELEE_CODES_WIDE_SHUTTERS_VALUE 2
 #define MELEE_CODES_WIDE_VALUE 3

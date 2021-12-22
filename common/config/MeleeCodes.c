@@ -22,6 +22,8 @@
 #include "../../kernel/gecko/g_screen_wide.h" // Screen: Widescreen
 #include "../../kernel/gecko/g_screen_wide_shutters.h" // Screen: 4:3 -> 73:60
 
+#include "../../kernel/gecko/g_safety.h" // Safety codeset
+
 #define NULL ((void *)0)
 
 /***************************************
@@ -413,6 +415,47 @@ const MeleeCodeLineItem screenLineItem = {
 };
 
 /***************************************
+ * Version Options
+ ***************************************/
+const MeleeCodeOption safetyOptionOff = {
+	1,
+	"Off",
+	0,
+	NULL,
+};
+
+const MeleeCodeOption safetyOptionOn = {
+	2,
+	"On",
+	g_safety_size,
+	g_safety,
+};
+
+const MeleeCodeOption *safetyOptions[MELEE_CODES_SAFETY_OPTION_COUNT] = {
+	&safetyOptionOff,
+	&safetyOptionOn,
+};
+
+static const char *safetyDescription[] = {
+	"Codes used for tournament safety.",
+	"",
+	"  [On]",
+	"    Force 1.0 Damage Ratio",
+	"    Pause always on for timed mode",
+	"    Pause always on for 5+ stock",
+	NULL
+};
+
+const MeleeCodeLineItem safetyLineItem = {
+	MELEE_CODES_SAFETY_OPTION_ID, // identifier
+	"Safety",
+	safetyDescription,
+	1,
+	MELEE_CODES_SAFETY_OPTION_COUNT,
+	safetyOptions,
+};
+
+/***************************************
  * Combine Everything
  ***************************************/
 const MeleeCodeLineItem *meleeCodeLineItems[] = {
@@ -423,6 +466,7 @@ const MeleeCodeLineItem *meleeCodeLineItems[] = {
 	&stagesLineItem,
 	&gameplayLineItem,
 	&screenLineItem,
+	&safetyLineItem,
 };
 
 const MeleeCodeConfig mcconfig = {
