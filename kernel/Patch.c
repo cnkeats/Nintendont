@@ -1236,6 +1236,7 @@ void DoPatches( char *Buffer, u32 Length, u32 DiscOffset )
 	// Load melee code config
 	const MeleeCodeConfig *codeConfig = GetMeleeCodeConfig();
 	u32 screenValue = ConfigGetMeleeCodeValue(codeConfig->items[MELEE_CODES_SCREEN_OPTION_ID]->identifier);
+	u8 isMeleeWidescreen = screenValue == MELEE_CODES_WIDE_VALUE || screenValue == MELEE_CODES_WIDE_SHUTTERS_VALUE;
 
 	// PSO 1&2 / III
 	u32 isPSO = 0;
@@ -1687,7 +1688,8 @@ void DoPatches( char *Buffer, u32 Length, u32 DiscOffset )
 	u32 videoPatches = 0;
 	if( ConfigGetConfig(NIN_CFG_FORCE_PROG) || (ConfigGetVideoMode() & NIN_VID_FORCE) ||
 		(ConfigGetVideoOffset() != 0 && ConfigGetVideoOffset() >= -20 && ConfigGetVideoOffset() <= 20) ||
-		(ConfigGetVideoScale() != 0 && ConfigGetVideoScale() >= 40 && ConfigGetVideoScale() <= 120) )
+		(ConfigGetVideoScale() != 0 && ConfigGetVideoScale() >= 40 && ConfigGetVideoScale() <= 120) ||
+		isMeleeWidescreen )
 	{
 		PatchCount &= ~(FPATCH_VideoModes | FPATCH_VIConfigure | FPATCH_getTiming);
 		videoPatches = 1;
@@ -2176,7 +2178,7 @@ void DoPatches( char *Buffer, u32 Length, u32 DiscOffset )
 								break;
 						}
 					}
-					else if( ConfigGetVideoMode() & NIN_VID_FORCE )
+					else if( ConfigGetVideoMode() & NIN_VID_FORCE || isMeleeWidescreen )
 					{
 						u8 NinForceMode = ConfigGetVideoMode() & NIN_VID_FORCE_MASK;
 						switch(read32((u32)Buffer+i))
@@ -2248,8 +2250,10 @@ void DoPatches( char *Buffer, u32 Length, u32 DiscOffset )
 						}
 					}
 					s8 videoScale = ConfigGetVideoScale();
-					if (screenValue == MELEE_CODES_WIDE_VALUE || screenValue == MELEE_CODES_WIDE_SHUTTERS_VALUE) {
+					if (isMeleeWidescreen) {
+						// Force video to be full width and force deflicker off
 						videoScale = 120;
+						memcpy(Buffer+i+0x32, GXDeflickerOff, sizeof(GXDeflickerOff));
 					}
 					
 					if(videoScale >= 40 && videoScale <= 120)
