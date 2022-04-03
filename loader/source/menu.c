@@ -988,6 +988,10 @@ static void Menu_Settings_InputHandler(MenuCtx *ctx)
 			// Wrap around to the beginning if we're at the end
 			if (ctx->settings.posX > NIN_SETTINGS_LAST - 1)
 				ctx->settings.posX = 0;
+			if (ctx->settings.posX == NIN_CFG_BIT_MEMCARDEMU)
+				ctx->settings.posX = NIN_CFG_BIT_MEMCARDEMU + 1;
+			else if (ctx->settings.posX == NIN_CFG_BIT_REMLIMIT)
+				ctx->settings.posX = NIN_CFG_BIT_REMLIMIT + 1;
 			// Some items are hidden if certain values aren't set.
 			if (((ncfg->VideoMode & NIN_VID_FORCE) == 0) &&
 			    (ctx->settings.posX == NIN_SETTINGS_VIDEOMODE))
@@ -1032,6 +1036,11 @@ static void Menu_Settings_InputHandler(MenuCtx *ctx)
 			// Wrap around to the last entry
 			if (ctx->settings.posX < 0)
 				ctx->settings.posX = NIN_SETTINGS_LAST - 1;
+
+			if (ctx->settings.posX == NIN_CFG_BIT_MEMCARDEMU)
+				ctx->settings.posX = NIN_CFG_BIT_MEMCARDEMU - 1;
+			else if (ctx->settings.posX == NIN_CFG_BIT_REMLIMIT)
+				ctx->settings.posX = NIN_CFG_BIT_REMLIMIT - 1;
 
 			// Some items are hidden if certain values aren't set.
 			if ((!(ncfg->Config & NIN_CFG_MEMCARDEMU)) && (ctx->settings.posX == NIN_SETTINGS_MEMCARDMULTI))
@@ -1137,9 +1146,11 @@ static void Menu_Settings_InputHandler(MenuCtx *ctx)
 			ctx->saveSettings = true;
 			if (ctx->settings.posX < NIN_CFG_BIT_LAST)
 			{
-				// NOTE: Disable memcard emulation for now
+				// NOTE: Disable memcard emulation and unlock read speed
 				if (ctx->settings.posX == NIN_CFG_BIT_MEMCARDEMU)
 					ncfg->Config &= ~NIN_CFG_BIT_MEMCARDEMU;
+				else if (ctx->settings.posX == NIN_CFG_BIT_REMLIMIT)
+					ncfg->Config &= ~NIN_CFG_BIT_REMLIMIT;
 				else
 					ncfg->Config ^= (1 << ctx->settings.posX);
 			}
@@ -1280,7 +1291,7 @@ static void Menu_Settings_Redraw(MenuCtx *ctx)
 			u32 item_color = BLACK;
 
 			// NOTE: Gray out memcard emulation for now
-			if (ListLoopIndex == NIN_CFG_BIT_MEMCARDEMU)
+			if (ListLoopIndex == NIN_CFG_BIT_MEMCARDEMU || ListLoopIndex == NIN_CFG_BIT_REMLIMIT)
 				item_color = GRAY;
 
 			PrintFormat(MENU_SIZE, item_color, MENU_POS_X + SETTINGS_X_START,

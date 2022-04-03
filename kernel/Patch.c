@@ -3913,8 +3913,7 @@ void DoPatches( char *Buffer, u32 Length, u32 DiscOffset )
 	UseReadLimit = 1;
 	// Datel discs require read speed. (Related to Stop motor/Read Header?)
 	// Triforce titles, and the N64 Emu work better without read speed
-	if((RealDiscCMD != 0 && !Datel) || TRIGame != TRI_NONE || IsN64Emu
-			|| ConfigGetConfig(NIN_CFG_REMLIMIT))
+	if((RealDiscCMD != 0 && !Datel) || TRIGame != TRI_NONE || IsN64Emu)
 		UseReadLimit = 0;
 }
 

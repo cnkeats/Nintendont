@@ -40,8 +40,6 @@ extern u32 TITLE_ID;
 
 void ReadSpeed_Init()
 {
-	if(ConfigGetConfig(NIN_CFG_REMLIMIT))
-		dbgprintf("ReadSpeed:Disabled\r\n");
 	CMDStartTime = 0;
 	CMDLastFinish = 0;
 	CMDTicks = UINT_MAX;
