@@ -226,7 +226,8 @@ static const char *lagReductionDescription[] = {
 	"  [PDF + 1/2F]",
 	"    Removes 1/2 frame of lag.",
 	"    Average 12.50ms reduction",
-	"    THIS IS ONLY FOR MONITORS.",
+	"    THIS IS ONLY FOR MONITORS,",
+	"    480p is forcibly enabled.",
 	NULL,
 };
 
