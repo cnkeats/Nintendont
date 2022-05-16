@@ -1,6 +1,6 @@
 FROM devkitpro/toolchain-base
 
-LABEL maintainer="Nikki <nikki@slippi.gg>""
+LABEL maintainer="Nikki <nikki@slippi.gg>"
 
 RUN dkp-pacman -Syyu --noconfirm gamecube-dev wii-dev wiiu-dev gba-dev && \
   dkp-pacman -S --needed --noconfirm `dkp-pacman -Slq dkp-libs | grep '^ppc-'` && \
