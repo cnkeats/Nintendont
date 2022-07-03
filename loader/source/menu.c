@@ -62,8 +62,8 @@ const u32 DiscFormatColors[8] =
 };
 
 // Supported disc image filenames
-static const char disc_filenames[8][16] = {
-	"game.ciso", "game.cso", "game.gcm", "game.iso",
+static const char disc_filenames[9][16] = {
+	"game.ciso", "game.cso", "game.gcm", "game.iso", "game.iso.iso",
 	"disc2.ciso", "disc2.cso", "disc2.gcm", "disc2.iso"
 };
 
