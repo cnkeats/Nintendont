@@ -23,7 +23,6 @@ static u32 Slippi_Thread;
 extern char __slippi_stack_addr, __slippi_stack_size;
 
 // File writing stuff
-static u32 fileIndex = 1;
 extern u8 wifi_mac_address[6]; // Used to identify replays
 
 // File object
@@ -85,11 +84,6 @@ char *generateFileName(bool isNewFile)
 		wifi_mac_address[0], wifi_mac_address[1], wifi_mac_address[2], wifi_mac_address[3],
 		wifi_mac_address[4], wifi_mac_address[5], tmp->tm_year + 1900, tmp->tm_mon + 1,
 		tmp->tm_mday, tmp->tm_hour, tmp->tm_min, tmp->tm_sec);
-
-	if (isNewFile)
-	{
-		fileIndex += 1;
-	}
 
 	return pathStr;
 }
