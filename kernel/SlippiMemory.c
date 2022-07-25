@@ -128,6 +128,14 @@ SlpMemError SlippiMemoryRead(SlpGameReader *reader, u8 *buf, u32 bufLen, u64 rea
 			resetMetadata(reader);
 			setPayloadSizes(reader, normalizedReadPos);
 		}
+		else if (command == SLP_CMD_NOP)
+		{
+			// In case of a nop, just try to read the next byte as a potential command. bytesRead should
+			// not be incremented because this "command" byte will not be part of the output
+			readPos += 1;
+			continue;
+		}
+
 
 		// Look up the size of the current command
 		u16 payloadSize = getPayloadSize(reader, command);
