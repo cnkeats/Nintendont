@@ -3279,7 +3279,13 @@ void DoPatches( char *Buffer, u32 Length, u32 DiscOffset )
 		dbgprintf("Patch:Installing gecko codehandler ..\r\n");
 
 		//setup jump to codehandler stub
-		if(OSSleepThreadHook || PADHook)
+		if (MeleeVersion)
+		{
+			// Add codehandler stub to a function that only gets called during _start
+			u32 codehandler_stub_offset = PatchCopy(codehandler_stub, codehandler_stub_size);
+			PatchB(codehandler_stub_offset, 0x0034cad8); // __init_user
+		}
+		else if(OSSleepThreadHook || PADHook)
 		{
 			u32 codehandler_stub_offset = PatchCopy(codehandler_stub, codehandler_stub_size);
 			if(OSSleepThreadHook) PatchB( codehandler_stub_offset, OSSleepThreadHook );
