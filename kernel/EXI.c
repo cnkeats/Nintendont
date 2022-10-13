@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "debug.h"
 #include "SRAM.h"
 #include "SlippiMemory.h"
+#include "replay/replay_header.h"
 
 #include "ff_utf8.h"
 
@@ -62,6 +63,10 @@ static u32 IPLReadOffset;
 static u32 IRQ_Timer = 0;
 static u32 CurrentTiming = EXI_IRQ_DEFAULT;
 static bool exi_inited = false;
+
+static u8 slippiCmd = 0;
+static s32 slippiFrame = -123;
+static u8 gameStartResp[5] = {1, 0, 0, 0, 0};
 
 bool EXI_IRQ = false;
 
@@ -802,11 +807,20 @@ void EXIUpdateRegistersNEW( void )
 				{
 					case EXI_DEV_MEMCARD_A:
 
+						// dbgprintf("EXI: DMA on Port A. Mode %d. Ptr: %08X, Len: %d\n", mode, ptr, len);
+
 						if (slippi_use_port_a && mode == 1) {
 							// Write data received by DMA to SlippiMemory
 							// Sync is necessary because data was written from PPC
 							sync_before_read((void *)ptr, len);
-							SlippiMemoryWrite(ptr, len);
+							slippiCmd = ptr[0];
+							if (slippiCmd == 0x76) {
+								memcpy((void*)&slippiFrame, (void*)((u32)ptr+1), 4);
+							} else if (slippiCmd == 0xD0) {
+								dbgprintf((char*)&ptr[1]);
+							}
+
+							// dbgprintf("Slippi: Port A Write. Cmd: 0x%x, Frame: %d\n", slippiCmd, slippiFrame);
 
 							// Code to do some timing comparisons
 							// sync_before_read((void *)ptr, len);
@@ -815,6 +829,24 @@ void EXIUpdateRegistersNEW( void )
 							// u32 ticks = GetTicks();
 							// u32 ms = TicksToMs(ticks);
 							// dbgprintf("Received action. Index: %d | Time: %dms\r\n", actionIndex, ms);
+						} else if (slippi_use_port_a && mode == 0) {
+							// dbgprintf("Slippi: Port A Read. Cmd: 0x%x, Frame: %d\n", slippiCmd, slippiFrame);
+							// This is a read now, let's write the data
+							if (slippiCmd == 0x75) {
+								u32 seed = replay_start_seed;
+								memcpy((void*)&gameStartResp[1], (void*)&seed, 4);
+								memcpy((void*)ptr, (void*)gameStartResp, 5);
+								sync_after_write((void*)ptr, 5);
+							} else if (slippiCmd == 0x76) {
+								s32 fIdx = slippiFrame + 123;
+								if (fIdx < 0) {
+									fIdx = 0;
+								} else if (fIdx >= replay_frame_count) {
+									fIdx = replay_frame_count - 1;
+								}
+								memcpy((void*)ptr, (void*)&replay_frame_resp[fIdx][0], 101);
+								sync_after_write((void*)ptr, 101);
+							}
 						}
 
 						// The following code will simply ACK the message from the PowerPC side
@@ -837,6 +869,8 @@ void EXIUpdateRegistersNEW( void )
 
 #ifdef GCNCARD_ENABLE_SLOT_B
 					case EXI_DEV_MEMCARD_B:
+
+						// dbgprintf("EXI: DMA on Port B. Mode %d. Ptr: %08X, Len: %d\n", mode, len);
 
 						if (!slippi_use_port_a && mode == 1) {
 							// Write data received by DMA to SlippiMemory
