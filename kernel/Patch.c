@@ -120,6 +120,7 @@ u32 IsN64Emu = 0;
 
 #include "gecko/g_core.h"	// Core Slippi codeset
 #include "gecko/g_core_porta.h"
+#include "gecko/g_crash_output.h"
 
 // Boundaries of the tournament mode region in NTSC-U v1.02
 #define CODELIST_TOURNAMENT_BASE	0x001910E0
@@ -3279,7 +3280,13 @@ void DoPatches( char *Buffer, u32 Length, u32 DiscOffset )
 		dbgprintf("Patch:Installing gecko codehandler ..\r\n");
 
 		//setup jump to codehandler stub
-		if(OSSleepThreadHook || PADHook)
+		if (MeleeVersion)
+		{
+			// Add codehandler stub to a function that only gets called during _start
+			u32 codehandler_stub_offset = PatchCopy(codehandler_stub, codehandler_stub_size);
+			PatchB(codehandler_stub_offset, 0x0034cad8); // __init_user
+		}
+		else if(OSSleepThreadHook || PADHook)
 		{
 			u32 codehandler_stub_offset = PatchCopy(codehandler_stub, codehandler_stub_size);
 			if(OSSleepThreadHook) PatchB( codehandler_stub_offset, OSSleepThreadHook );
@@ -3367,6 +3374,16 @@ void DoPatches( char *Buffer, u32 Length, u32 DiscOffset )
 			sync_after_write((void*)gct_cursor, g_core_porta_size);
 			gct_cursor += g_core_porta_size;
 		}
+
+		// Here we copy over the code that outputs crash info, but we also overwrite the string 16
+		// bytes into the code in order for it to output the actual nintendont version
+		dbgprintf("Patch:Apply Crash Info at 0x%08x\r\n", gct_cursor);
+		memcpy((void*)gct_cursor, g_crash_output, g_crash_output_size);
+		char vstr[64];
+		_sprintf(vstr, "SN %s", NIN_GIT_VERSION);
+		memcpy((void*)(gct_cursor + 0x10), (void*)vstr, 64);
+		sync_after_write((void*)gct_cursor, g_crash_output_size);
+		gct_cursor += g_crash_output_size;
 
 		dbgprintf("Patch:Applying toggleables...\r\n");
 		
