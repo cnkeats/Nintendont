@@ -3379,7 +3379,7 @@ void DoPatches( char *Buffer, u32 Length, u32 DiscOffset )
 		// bytes into the code in order for it to output the actual nintendont version
 		dbgprintf("Patch:Apply Crash Info at 0x%08x\r\n", gct_cursor);
 		memcpy((void*)gct_cursor, g_crash_output, g_crash_output_size);
-		char vstr[64];
+		char vstr[64] = {0}; // Init array to all zero since it will be copied into gecko code
 		_sprintf(vstr, "SN %s", NIN_GIT_VERSION);
 		memcpy((void*)(gct_cursor + 0x10), (void*)vstr, 64);
 		sync_after_write((void*)gct_cursor, g_crash_output_size);
