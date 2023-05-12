@@ -2,6 +2,8 @@
 
 #include "../../kernel/gecko/g_ucf.h" // UCF codeset
 #include "../../kernel/gecko/g_ucf_stealth.h" // UCF Stealth
+#include "../../kernel/gecko/g_ucf_084.h" // UCF codeset
+#include "../../kernel/gecko/g_ucf_084_stealth.h" // UCF Stealth
 
 #include "../../kernel/gecko/g_pal.h" // PAL codeset
 
@@ -50,10 +52,26 @@ const MeleeCodeOption cfOptionStealthUcf = {
 	g_ucf_stealth, // code
 };
 
+const MeleeCodeOption cfOptionUcf084 = {
+	4, // value
+	"UCF 0.84", // name
+	g_ucf_084_size, // codeLen
+	g_ucf_084, // code
+};
+
+const MeleeCodeOption cfOptionStealthUcf084 = {
+	5, // value
+	"0.84 Stealth", // name
+	g_ucf_084_stealth_size, // codeLen
+	g_ucf_084_stealth, // code
+};
+
 const MeleeCodeOption *cfOptions[MELEE_CODES_CF_OPTION_COUNT] = {
 	&cfOptionOff,
 	&cfOptionUcf,
 	&cfOptionStealthUcf,
+	&cfOptionUcf084,
+	&cfOptionStealthUcf084,
 };
 
 static const char *cfDescription[] = {
@@ -67,6 +85,9 @@ static const char *cfDescription[] = {
 	"  [Stealth]",
 	"    Enables UCF 0.8 without the",
 	"    CSS text",
+	"",
+	"  [UCF 0.84]",
+	"    INSERT INFO ABOUT UCF 0.84 HERE",
 	NULL
 };
 
