@@ -77,17 +77,17 @@ const MeleeCodeOption *cfOptions[MELEE_CODES_CF_OPTION_COUNT] = {
 static const char *cfDescription[] = {
 	"The type of controller fix to apply",
 	"",
-	"  [UCF]",
-	"    Will enable UCF 0.8. Includes",
-	"    dashback, shield drop, and",
-	"    wiggle out of tumble.",
+	"   [UCF]",
+	"     Will enable UCF 0.8. Includes",
+	"     dashback, shield drop, and",
+	"     wiggle out of tumble.",
 	"",
-	"  [Stealth]",
-	"    Enables UCF 0.8 without the",
-	"    CSS text",
+	"   [Stealth]",
+	"     Enables UCF 0.8 without the",
+	"     CSS text",
 	"",
-	"  [UCF 0.84]",
-	"    INSERT INFO ABOUT UCF 0.84 HERE",
+	"   [UCF 0.84 BETA]",
+	"     INSERT INFO ABOUT UCF 0.84 HERE",
 	NULL
 };
 
