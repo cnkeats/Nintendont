@@ -61,7 +61,7 @@ const MeleeCodeOption cfOptionUcf084 = {
 
 const MeleeCodeOption cfOptionStealthUcf084 = {
 	5, // value
-	"0.84 Stealth", // name
+	"Stealth 0.84", // name
 	g_ucf_084_stealth_size, // codeLen
 	g_ucf_084_stealth, // code
 };
