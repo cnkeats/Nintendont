@@ -80,18 +80,17 @@ static const char *cfDescription[] = {
 	"   [UCF]",
 	"     Will enable UCF 0.8. Includes",
 	"     dashback, shield drop, and",
-	"     wiggle out of tumble.",
+	"     wiggle out of tumble",
 	"",
 	"   [Stealth]",
 	"     Enables UCF 0.8 without the",
 	"     CSS text",
 	"",
 	"   [UCF 0.84 RC]",
-	"     Release candidate for 0.84.",
-	"     Includes 1.0 cardinals,",
-	"     dbooc fix, frame 1 SDI fix,",
-	"     and shield drop range up",
-	"     increase.",
+	"     UCF 0.84 Release candidate. Adds",
+	"     1.0 cardinals, frame 1 SDI fix,",
+	"     dbooc fix, and shield drop",
+	"     range up conditional increase.",
 	NULL
 };
 
