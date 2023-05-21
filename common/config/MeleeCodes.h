@@ -40,7 +40,7 @@ typedef struct MeleeCodeLineItem
 {
 	const int identifier; // unique identifier for a line item
 	const char *name;
-	const char *const *description;
+	const char *const *description; // max lines is 18, line length should be <= 36
 	const int defaultValue;
 	const int optionCount;
 	const MeleeCodeOption **options;
