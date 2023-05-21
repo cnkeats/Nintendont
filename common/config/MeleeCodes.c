@@ -89,7 +89,7 @@ static const char *cfDescription[] = {
 	"   [UCF 0.84 RC]",
 	"     Release candidate for 0.84.",
 	"     Includes 1.0 cardinals,",
-	"     dbooc fix, frame 1 SDI fix",
+	"     dbooc fix, frame 1 SDI fix,",
 	"     and shield drop range up",
 	"     increase.",
 	NULL
