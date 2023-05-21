@@ -54,7 +54,7 @@ const MeleeCodeOption cfOptionStealthUcf = {
 
 const MeleeCodeOption cfOptionUcf084 = {
 	4, // value
-	"UCF 0.84", // name
+	"UCF 0.84 RC", // name
 	g_ucf_084_size, // codeLen
 	g_ucf_084, // code
 };
@@ -86,8 +86,12 @@ static const char *cfDescription[] = {
 	"     Enables UCF 0.8 without the",
 	"     CSS text",
 	"",
-	"   [UCF 0.84 BETA]",
-	"     INSERT INFO ABOUT UCF 0.84 HERE",
+	"   [UCF 0.84 RC]",
+	"     Release candidate for 0.84.",
+	"     Includes 1.0 cardinals,",
+	"     dbooc fix, frame 1 SDI fix",
+	"     and shield drop range up",
+	"     increase.",
 	NULL
 };
 
