@@ -74,6 +74,8 @@ const MeleeCodeOption *cfOptions[MELEE_CODES_CF_OPTION_COUNT] = {
 	&cfOptionStealthUcf084,
 };
 
+// an additional space was added to all lines to accomdate "Stealth 0.84"
+// we can remove them once 0.84 is the only option
 static const char *cfDescription[] = {
 	"The type of controller fix to apply",
 	"",
